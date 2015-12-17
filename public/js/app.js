@@ -53,7 +53,6 @@ var app = angular.module('phoneBook', [])
 			}).success(function (resp){
 				if(resp.resCode==0){
 					$scope.edit = resp.data;
-					console.log(resp)
 				}else{
 					alert('Something went wrong, please try agian.');
 				}
