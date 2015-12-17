@@ -1,15 +1,93 @@
 html(ng-app="phoneBook")
 	head
-		title
-			Phone Book Demo	
+		title Phone Contact
 		script(type="text/javascript", src="/js/lib/angular/angular.min.js")
 		script(type="text/javascript", src="/js/lib/JQuery/jquery-2.1.4.min.js")
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
 		script(type="text/javascript", src="/js/app.js")
-	body
-		div(ng-controller="phoneBookController")
-			button(ng-click="addContact()")
-				| Add Contact
-			h1
-				hello phone book
-			button(ng-click="test()")
-				hit me
+	body(ng-controller="phoneBookController", style="margin-top:auto")
+		div(class='container-fluid', ng-init="getAllContact()")
+			div(class='row-fluid')
+				div(class="col-lg-2")
+					h3 Add new contact
+					form(class="form-horizontal", name="contactForm", ng-submit="addContact()", novalidate)
+						div(class="form-group", ng-class="{'has-error': contactForm.contactName.$invalid}")
+							label(class="control-label")
+								| Contact Name :
+							input(class="form-control", type="text", name="contactName", ng-model="contactName", required)
+							span(ng-show="contactForm.contactName.$invalid", class="help-block")
+								| *required
+						div(class="form-group", ng-class="{'has-error': contactForm.contactNo.$invalid}")
+							label(class="control-label")
+								| Contact No. :
+							input(class="form-control", name="contactNo", type="text", ng-model="contactNo", required)
+							span(ng-show="contactForm.contactNo.$invalid", class="help-block") 
+								| *required
+						div(class="form-group", ng-class="{'has-error': contactForm.contactEmail.$invalid}")
+							label(class="control-label")
+								| Contact Email :
+							input(name="contactEmail", class="form-control", type="text", ng-model="contactEmail", required)
+							span(ng-show="contactForm.contactEmail.$invalid", class="help-block") 
+								| *required
+						button(type="submit", class="btn btn-success", style="float:right")
+							| Submit
+				div(class="col-lg-10")
+					div(class="container-fluid")
+						h2 All your contacts
+						form(class="form-inline")
+							div(class="form-group")
+								input(type="text", class="form-control", ng-model="searchText", placeholder="Find your contact here!")
+						div
+							table(class="table table-bordered table-striped")
+								thead
+									tr
+										th(style="text-align:center") Seq.
+										th(style="text-align:center") Contact Name
+										th(style="text-align:center") Contact No.
+										th(style="text-align:center") Contact Email
+										th(style="text-align:center") Action
+								tbody
+									tr(ng-repeat="x in phoneContact | filter:searchText")
+										td(style="text-align:center") {{$index+1}}
+										td(style="text-align:center") {{x.contactName}}
+										td(style="text-align:center") {{x.contactNo}}
+										td(style="text-align:center") {{x.contactEmail}}
+										td
+											div(style="text-align:center")
+												div(class="btn-group")
+													button(data-toggle="modal", data-target="#editModal", type="button", class="btn btn-small btn-primary", ng-click="getContact(x._id)")
+														| Edit
+													button(type="button", class="btn btn-small btn-danger")
+														| Remove
+					div#editModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+						div.modal-dialog(role='document')
+							div.modal-content
+								div.modal-header
+									button.close(id="closeModal", type='button', data-dismiss='modal', aria-label='Close')
+										span(aria-hidden='true') ×
+									h4#myModalLabel.modal-title Edit your contact
+								div.modal-body
+									div(class="container-fluid")
+										form(class="form-horizontal", name="editForm", ng-submit="addContact()", novalidate)
+											div(class="form-group", ng-class="{'has-error': editForm.editName.$invalid}")
+												label(class="control-label")
+													| Contact Name :
+												input(class="form-control", type="text", name="editName", ng-model="edit.contactName", required)
+												span(ng-show="editForm.editName.$invalid", class="help-block")
+													| *required
+											div(class="form-group", ng-class="{'has-error': editForm.editNo.$invalid}")
+												label(class="control-label")
+													| Contact No. :
+												input(class="form-control", name="editNo", type="text", ng-model="edit.contactNo", required)
+												span(ng-show="editForm.editNo.$invalid", class="help-block") 
+													| *required
+											div(class="form-group", ng-class="{'has-error': editForm.editEmail.$invalid}")
+												label(class="control-label")
+													| Contact Email :
+												input(name="editEmail", class="form-control", type="text", ng-model="edit.contactEmail", required)
+												span(ng-show="editForm.editEmail.$invalid", class="help-block") 
+													| *required
+								div.modal-footer
+									button.btn.btn-default(type='button', data-dismiss='modal') Close
+									button.btn.btn-primary(type='button', ng-click="editContact()") Save changes
