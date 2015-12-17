@@ -1,0 +1,15 @@
+html(ng-app="phoneBook")
+	head
+		title
+			Phone Book Demo	
+		script(type="text/javascript", src="/js/lib/angular/angular.min.js")
+		script(type="text/javascript", src="/js/lib/JQuery/jquery-2.1.4.min.js")
+		script(type="text/javascript", src="/js/app.js")
+	body
+		div(ng-controller="phoneBookController")
+			button(ng-click="addContact()")
+				| Add Contact
+			h1
+				hello phone book
+			button(ng-click="test()")
+				hit me
