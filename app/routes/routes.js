@@ -64,4 +64,15 @@ module.exports = function(app){
       } 
     });
   });
+  app.delete('/deleteContact', function(req, res){
+    models.contact.findOneAndRemove({_id: req.query._id}, function(err, contact){
+      if(err){
+        console.log(err);
+        obj.resCode = 1;
+        obj.resDesc = 'ERROR';
+      }else{
+        res.json(obj);
+      } 
+    })
+  });
 };

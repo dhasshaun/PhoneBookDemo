@@ -9,5 +9,3 @@ app.listen(3000, function(){
 	console.log("Running on port 3000");
 });
 require('./app/routes/routes.js')(app);
-// var ll = require('./app/models/contact.js');
-// console.log(ll)

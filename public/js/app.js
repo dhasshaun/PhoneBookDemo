@@ -89,4 +89,23 @@ var app = angular.module('phoneBook', [])
 				alert("Fill all required :)");
 			}
 		};
+		$scope.deleteContact = function(contactID){
+			$http({
+				url : '/deleteContact',
+				method : 'delete',
+				params : {
+					_id : contactID
+				}
+			}).success(function(resp){
+				if(resp.resCode == 0){
+					alert("Remove Succesful!");
+					$scope.getAllContact();
+				}else{
+					alert('Something went wrong, please try agian.');
+				}
+			}).error(function (err){
+				console.log(err);
+				alert("Cannot Send Request :(")
+			});
+		}
 	})

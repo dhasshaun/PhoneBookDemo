@@ -1,6 +1,6 @@
 html(ng-app="phoneBook")
 	head
-		title Phone Contact
+		title Phone Book
 		script(type="text/javascript", src="/js/lib/angular/angular.min.js")
 		script(type="text/javascript", src="/js/lib/JQuery/jquery-2.1.4.min.js")
 		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
@@ -58,7 +58,7 @@ html(ng-app="phoneBook")
 												div(class="btn-group")
 													button(data-toggle="modal", data-target="#editModal", type="button", class="btn btn-small btn-primary", ng-click="getContact(x._id)")
 														| Edit
-													button(type="button", class="btn btn-small btn-danger")
+													button(type="button", class="btn btn-small btn-danger", ng-click="deleteContact(x._id)")
 														| Remove
 					div#editModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
 						div.modal-dialog(role='document')
