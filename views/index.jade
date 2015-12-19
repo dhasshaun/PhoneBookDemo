@@ -27,9 +27,9 @@ html(ng-app="phoneBook")
 						div(class="form-group", ng-class="{'has-error': contactForm.contactEmail.$invalid}")
 							label(class="control-label")
 								| Contact Email :
-							input(name="contactEmail", class="form-control", type="text", ng-model="contactEmail", required)
+							input(name="contactEmail", class="form-control", type="email", ng-model="contactEmail", required)
 							span(ng-show="contactForm.contactEmail.$invalid", class="help-block") 
-								| *required
+								| *required and must be valid
 						button(type="submit", class="btn btn-success", style="float:right")
 							| Submit
 				div(class="col-lg-10")
